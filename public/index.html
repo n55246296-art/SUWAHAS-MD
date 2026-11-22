@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SUWAHAS MD - Pair</title>
+<style>
+body{background:#0b0f14;color:white;font-family:sans-serif;text-align:center;padding:20px}
+.card{background:#151c26;padding:20px;border-radius:15px;max-width:400px;margin:auto}
+input{width:90%;padding:12px;border-radius:10px;border:none;margin:10px 0}
+button{background:#25D366;color:white;border:none;padding:12px 20px;border-radius:10px;font-weight:bold;width:95%}
+#code{font-size:32px;letter-spacing:5px;margin:15px;color:#25D366;font-weight:bold}
+</style>
+</head>
+<body>
+<div class="card">
+<h2>👑 SUWAHAS MD</h2>
+<p>WhatsApp Number එක දාලා Pair Code ගන්න</p>
+<input id="num" placeholder="947XXXXXXXX">
+<button onclick="getCode()">GET PAIR CODE</button>
+<div id="code"></div>
+<p id="msg"></p>
+<p style="font-size:12px">WhatsApp > Linked Devices > Link with phone number</p>
+</div>
+<script>
+async function getCode(){
+  const number=document.getElementById('num').value;
+  document.getElementById('msg').innerText='Code එක ගන්නවා...';
+  const r=await fetch('/pair',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({number})});
+  const d=await r.json();
+  document.getElementById('msg').innerText=d.msg;
+  document.getElementById('code').innerText=d.code||'';
+}
+</script>
+</body>
+</html>
